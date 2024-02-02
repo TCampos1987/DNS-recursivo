@@ -1,5 +1,5 @@
 # DNS-recursivo
-Configuração de Servidor DNS Recursivo utilizando Bird9
+Configuração de Servidor DNS Recursivo utilizando Bind9
 
 ## REQUISITOS
 Nesse exemplo estarei determinando com base no Ubuntu 22.04 LTS mais recente a epoca
