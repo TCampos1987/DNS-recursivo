@@ -1,0 +1,47 @@
+# code: language=ansible
+- name: Instalar e configurar o BIND
+  hosts: IP do servidor exemplo 192.168.0.1
+  become: true
+
+  tasks:
+    - name: Instalar o pacote
+      ansible.builtin.apt:
+        name: bind9  
+        state: present
+
+    - name: Copiar arquivo de configuração named.conf
+      ansible.builtin.template:
+        src: ../named.conf
+        dest: /etc/bind/named.conf
+        mode: '0644'
+      become: true
+      notify: Reload BIND
+
+    - name: Copiar arquivo de configuração named.conf.options
+      ansible.builtin.template:
+        src: ../named.conf.options
+        dest: /etc/bind/named.conf.options
+        mode: '0644'
+      become: true
+      notify: Reload BIND
+
+    - name: Copiar arquivo de dominio principal
+      ansible.builtin.copy:
+        src: ../db.example.com
+        dest: /etc/bind/
+        mode: '0644'
+      become: true
+      notify: Reload BIND
+
+    - name: Copiar arquivo de subdominio
+      ansible.builtin.copy:
+        src: ../db.sub.example.com
+        dest: /etc/bind/zones/
+        mode: '0644'
+      become: true
+      notify: Reload BIND
+  handlers:
+    - name: Reload BIND
+      ansible.builtin.service:
+        name: bind9
+        state: reloaded

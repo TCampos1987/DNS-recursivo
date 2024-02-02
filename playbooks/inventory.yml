@@ -1,0 +1,5 @@
+all:
+  hosts:
+    IP servidor:
+      ansible_user: login
+      ansible_password: senha
