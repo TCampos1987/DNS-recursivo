@@ -1,0 +1,12 @@
+options {
+	directory "/var/cache/bind";
+  	allow-query { any; };
+  	auth-nxdomain no;
+  	listen-on port 53 { any; };
+  	// Desabilitar IPv6
+  	query-source address *;	
+	forwarders {
+	8.8.8.8;
+	8.8.4.4;
+	};
+};
